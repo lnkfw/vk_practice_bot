@@ -1,4 +1,4 @@
-# vk_practice_bot
+# VK Education Practice Project(Чат-бот в сообщетсве VK)
 Project for VK Education Practice
 
 Чат-бот сообщества ВКонтакте:

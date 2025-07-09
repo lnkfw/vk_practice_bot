@@ -78,7 +78,7 @@ def get_gigachat_token():
             headers=headers, 
             data=payload, 
             timeout=10,
-            verify=False  
+            verify=False
         )
         
         if response.status_code == 200:
@@ -153,12 +153,12 @@ def ask_gigachat(question):
     }
     
     try:
-            response = requests.post(
+        response = requests.post(
             url, 
             headers=headers, 
             json=data, 
             timeout=15,
-            verify=False  
+            verify=False
         )
         
         if response.status_code == 401:

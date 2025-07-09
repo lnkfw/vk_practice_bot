@@ -7,20 +7,17 @@ import logging
 import requests
 import uuid
 
-# Конфигурация
 GROUP_ID = 231406471
 TOKEN = "vk1.a.PzHqqXxe88F9IRrh_TKb-CXcpTtV5ue4W9ppsUvXcea1C2EWHmYUIZMNr9W42MlplRCxP6F-OsuBCWPFqvZvLmpXEG2gUkq0foxJME1ZAiF3Yv3pnk8xixS7zPyfXQwzhvBHwFVlRY7N_dPTultrjOLsUJ6HrKaTN5mSeubN4owooj0uznCT8FazgsF9vweGkWpWcewfE8ewqMPBlGbL4g"
 VK_EDU_LINK = "https://vk.com/vkedu"
 GIGACHAT_API_KEY = "ZDE3ZmYyYjEtODkyYi00OGFjLTlmMjctYjM1YjNkMjliZGEwOjM5NmVhYTk0LWE1NDQtNDA0MC04ZjY4LTI3MjUwYzk3MTBhNQ=="
 
-# Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger("VK_Education_Bot")
 
-# База знаний (FAQ) - основные вопросы о VK Education
 FAQ = {
     "Кто может участвовать?": "Школьники, студенты бакалавриата, специалитета, магистратуры и аспирантуры всех вузов России, а также научные руководители и преподаватели.",
     "Можно выбрать несколько задач?": "Да, можно выбрать неограниченное количество задач.",
@@ -33,7 +30,6 @@ FAQ = {
     "Нет подходящей задачи?": "Следи за обновлениями в банке задач VK."
 }
 
-# Список нецензурных слов (фильтр)
 PROFANITY_FILTER = [
     "бля", "хуй", "пизд", "еба", "хуе", "хуя", "ебал", "залуп", "мудак", "гандон",
     "шлюх", "долбоеб", "сука", "пидор", "член", "вагин", "пенис", "анус", "срак",
@@ -57,7 +53,6 @@ def create_keyboard():
     keyboard.add_button("Другой вопрос", color=VkKeyboardColor.SECONDARY)
     return keyboard.get_keyboard()
 
-# Глобальные переменные для управления токеном GigaChat
 access_token = None
 token_expire_time = 0
 
@@ -78,13 +73,12 @@ def get_gigachat_token():
     }
     
     try:
-        # Отключаем проверку SSL для этого запроса
         response = requests.post(
             url, 
             headers=headers, 
             data=payload, 
             timeout=10,
-            verify=False  # ОТКЛЮЧАЕМ ПРОВЕРКУ SSL
+            verify=False  
         )
         
         if response.status_code == 200:
@@ -159,13 +153,12 @@ def ask_gigachat(question):
     }
     
     try:
-        # Отключаем проверку SSL для этого запроса
-        response = requests.post(
+            response = requests.post(
             url, 
             headers=headers, 
             json=data, 
             timeout=15,
-            verify=False  # ОТКЛЮЧАЕМ ПРОВЕРКУ SSL
+            verify=False  
         )
         
         if response.status_code == 401:
@@ -177,7 +170,7 @@ def ask_gigachat(question):
                     headers=headers, 
                     json=data, 
                     timeout=15,
-                    verify=False  # ОТКЛЮЧАЕМ ПРОВЕРКУ SSL
+                    verify=False
                 )
             else:
                 return "Ошибка авторизации. Попробуйте позже."
